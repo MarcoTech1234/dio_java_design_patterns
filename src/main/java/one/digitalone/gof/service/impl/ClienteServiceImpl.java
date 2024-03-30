@@ -62,15 +62,12 @@ public class ClienteServiceImpl implements ClienteService {
 	@Override
 	public void atualizar(Long id, Cliente cliente) {
 		// Buscar Cliente por ID, se o mesmo existir:
-		Optional<Cliente> clienteBdOptional = clienteRepository.findById(id);
-		if (clienteBdOptional.isEmpty()) {
+		Optional<Cliente> clienteBd = clienteRepository.findById(id);
+		if (clienteBd.isEmpty()) {
 			throw new RuntimeException("Cliente não encontrado com o ID: " + id);
 		}
-
-		if (clienteBdOptional.isPresent()) {
-			// Cliente encontrado, atualizar os campos relevantes
-			Cliente clienteBd = clienteBdOptional.get();
-			salvarClienteComCepEBanco(clienteBd);
+		if (clienteBd.isPresent()) {
+			salvarClienteComCepEBanco(cliente);
 		}
 	}
 
@@ -134,7 +131,7 @@ public class ClienteServiceImpl implements ClienteService {
 		ConverterServiceAdapter adapter = new ConverterServiceAdapter();  
 		adapter.CurrencyAdapter(converterService);
 		if(contaB.getTypeMoney() == "Dolar")
-			contaB.setSaldo(adapter.ConverterEuro(contaB.getSaldo()*5));
+			contaB.setSaldo(adapter.ConverterEuro(contaB.getSaldo()*5.02));
 		else if(contaB.getTypeMoney() == "Libra")
 			contaB.setSaldo(adapter.ConverterLibraEsterlinaToEuro(contaB.getSaldo()));
 		contaB.setTypeMoney("Euro");
@@ -149,7 +146,7 @@ public class ClienteServiceImpl implements ClienteService {
 		ConverterServiceAdapter adapter = new ConverterServiceAdapter();
 		adapter.CurrencyAdapter(converterService); 
 		if(contaB.getTypeMoney() == "Dolar")
-			contaB.setSaldo(adapter.ConverterLibraEsterlina(contaB.getSaldo()*5));
+			contaB.setSaldo(adapter.ConverterLibraEsterlina(contaB.getSaldo()*5.02));
 		else if(contaB.getTypeMoney() == "Euro")
 			contaB.setSaldo(adapter.ConverterEuroToLibraEsterlina(contaB.getSaldo()));
 		contaB.setTypeMoney("Libra");
