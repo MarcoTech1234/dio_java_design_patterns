@@ -131,7 +131,7 @@ public class ClienteServiceImpl implements ClienteService {
 		ConverterServiceAdapter adapter = new ConverterServiceAdapter();  
 		adapter.CurrencyAdapter(converterService);
 		if(contaB.getTypeMoney() == "Dolar")
-			contaB.setSaldo(adapter.ConverterEuro(contaB.getSaldo()*5.02));
+			contaB.setSaldo(adapter.ConverterEuro(contaB.getSaldo()*5));
 		else if(contaB.getTypeMoney() == "Libra")
 			contaB.setSaldo(adapter.ConverterLibraEsterlinaToEuro(contaB.getSaldo()));
 		contaB.setTypeMoney("Euro");
@@ -146,7 +146,7 @@ public class ClienteServiceImpl implements ClienteService {
 		ConverterServiceAdapter adapter = new ConverterServiceAdapter();
 		adapter.CurrencyAdapter(converterService); 
 		if(contaB.getTypeMoney() == "Dolar")
-			contaB.setSaldo(adapter.ConverterLibraEsterlina(contaB.getSaldo()*5.02));
+			contaB.setSaldo(adapter.ConverterLibraEsterlina(contaB.getSaldo()*5));
 		else if(contaB.getTypeMoney() == "Euro")
 			contaB.setSaldo(adapter.ConverterEuroToLibraEsterlina(contaB.getSaldo()));
 		contaB.setTypeMoney("Libra");
